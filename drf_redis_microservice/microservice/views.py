@@ -40,7 +40,7 @@ class DevicesAPIView(ModelViewSet):
     def update(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
         if not pk:
-            return Response({"error": 'Method DELETE not allowed'})
+            return Response({"error": 'Method PUT not allowed'})
         try:
             instance = Devices.objects.get(pk=pk)
         except:
@@ -68,12 +68,16 @@ class DevicesAPIView(ModelViewSet):
             dev_id.append(DevicesAPIView.randomMAC())
             requests.post('http://127.0.0.1:8000/api/devices/',
                           json={'dev_type': dev_type[i], 'dev_id': dev_id[i]})
-        return dev_id
+        return dict(zip(dev_id, dev_type))
 
     @staticmethod
-    def endpoint_adder(dev_id):
-        endpoints = random.sample(dev_id, 5)
-        print(endpoints)
+    def endpoint_adder(devices):
+        add_endpoints = random.sample(list(devices.keys()), 5)
+        counter = 0
+        for dev_id in add_endpoints:
+            counter += 1
+            requests.put(f'http://127.0.0.1:8000/api/devices/{dev_id}/',
+                         json={"dev_id": dev_id, "endpoint": counter, "dev_type": devices[dev_id]})
 
 
 redis_instance = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0)
