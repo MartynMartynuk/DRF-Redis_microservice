@@ -36,7 +36,7 @@ pip install -r requirements.txt
 В ответ вернётся статус запроса 201.
 
 Во исполнение ТЗ реализовано единственным POST запросом (хотя я бы делал несколькими - сначала добавил 10 устройств через POST, потом добавил эндпоинты через PUT).
-Функционал реализован в методе [create](https://github.com/MartynMartynuk/DRF-Redis_microservice/blob/master/drf_redis_microservice/microservice/views.py#:~:text=def-,create,-(self%2C%20request%2C%20*args)
+Функционал реализован в методе [create](https://github.com/MartynMartynuk/DRF-Redis_microservice/blob/master/drf_redis_microservice/microservice/views.py#:~:text=def-,create,-(self%2C%20request%2C%20*args))
 
 ### 3. Получение списка устройств без endpoint-отв, сгруппированного по типам устройств
 Отправить 'GET' запрос на адрес "localhost/api/devices/", содержащий json выражение 
